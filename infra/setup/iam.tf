@@ -191,7 +191,7 @@ data "aws_iam_policy_document" "iam_rds" {
     actions = [
       "iam:CreateServiceLinkedRole"
     ]
-    resources = ["arn:aws:iam::864899870620:role/rds.amazonaws.com/AWSServiceRoleForRDS"]
+    resources = ["arn:aws:iam::864899870620:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS"]
   }
 }
 
