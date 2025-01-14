@@ -38,7 +38,6 @@ jobs:
           docker push ${{ vars.ECR_REPO_APP }}:$GITHUB_SHA
           docker build --compress -t ${{ vars.ECR_REPO_PROXY }}:$GITHUB_SHA proxy/
           docker push ${{ vars.ECR_REPO_PROXY }}:$GITHUB_SHA
-          aws iam create-service-linked-role --aws-service-name rds.amazonaws.com
 
       - name: Terraform apply
         env:
