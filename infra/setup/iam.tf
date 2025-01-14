@@ -167,8 +167,7 @@ data "aws_iam_policy_document" "rds" {
       "rds:ListTagsForResource",
       "rds:ModifyDBInstance",
       "rds:AddTagsToResource",
-      "rds:ModifyDBSubnetGroup",
-      "iam:CreateServiceLinkedRole"
+      "rds:ModifyDBSubnetGroup"
     ]
     resources = ["*"]
   }
@@ -183,4 +182,25 @@ resource "aws_iam_policy" "rds" {
 resource "aws_iam_user_policy_attachment" "rds" {
   user       = aws_iam_user.cd.name
   policy_arn = aws_iam_policy.rds.arn
+}
+
+data "aws_iam_policy_document" "iam_rds" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:CreateServiceLinkedRole"
+    ]
+    resources = ["arn:aws:iam::864899870620:role/rds.amazonaws.com/AWSServiceRoleForRDS"]
+  }
+}
+
+resource "aws_iam_policy" "iam_rds" {
+  name        = "${aws_iam_user.cd.name}-iam-rds"
+  description = "Allow user to manage RDS resources (IAM)."
+  policy      = data.aws_iam_policy_document.iam_rds.json
+}
+
+resource "aws_iam_user_policy_attachment" "iam_rds" {
+  user       = aws_iam_user.cd.name
+  policy_arn = aws_iam_policy.iam_rds.arn
 }
