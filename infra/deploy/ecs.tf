@@ -179,7 +179,12 @@ resource "aws_security_group" "ecs_service" {
   }
 }
 
+resource "aws_iam_service_linked_role" "ecs" {
+  aws_service_name = "ecs.amazonaws.com"
+}
+
 resource "aws_ecs_service" "api" {
+  depends_on             = [aws_iam_service_linked_role.ecs]
   name                   = "${local.prefix}-api"
   cluster                = aws_ecs_cluster.main.name
   task_definition        = aws_ecs_task_definition.api.family
