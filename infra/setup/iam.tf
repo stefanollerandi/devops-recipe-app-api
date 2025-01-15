@@ -185,25 +185,25 @@ resource "aws_iam_user_policy_attachment" "rds" {
   policy_arn = aws_iam_policy.rds.arn
 }
 
-data "aws_iam_policy_document" "iam_rds" {
+data "aws_iam_policy_document" "iam_dynamic_create_service" {
   statement {
     effect = "Allow"
     actions = [
       "iam:CreateServiceLinkedRole"
     ]
-    resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS"]
+    resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/*"]
   }
 }
 
-resource "aws_iam_policy" "iam_rds" {
-  name        = "${aws_iam_user.cd.name}-iam-rds"
-  description = "Allow user to manage RDS resources (IAM)."
-  policy      = data.aws_iam_policy_document.iam_rds.json
+resource "aws_iam_policy" "iam_dynamic_create_service" {
+  name        = "${aws_iam_user.cd.name}-iam-dynamic-create-services"
+  description = "Allow IAM to create Service Linked Roles Dynamically."
+  policy      = data.aws_iam_policy_document.iam_dynamic_create_service.json
 }
 
-resource "aws_iam_user_policy_attachment" "iam_rds" {
+resource "aws_iam_user_policy_attachment" "iam_dynamic_create_service" {
   user       = aws_iam_user.cd.name
-  policy_arn = aws_iam_policy.iam_rds.arn
+  policy_arn = aws_iam_policy.iam_dynamic_create_service.arn
 }
 
 #########################
