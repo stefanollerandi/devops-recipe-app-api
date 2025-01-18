@@ -189,7 +189,8 @@ data "aws_iam_policy_document" "iam_dynamic_create_service" {
   statement {
     effect = "Allow"
     actions = [
-      "iam:CreateServiceLinkedRole"
+      "iam:CreateServiceLinkedRole",
+      "iam:DeleteServiceLinkedRole",
     ]
     resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/*"]
   }
