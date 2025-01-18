@@ -89,7 +89,7 @@ resource "aws_ecs_task_definition" "api" {
       mountPoints = [
         {
           readOnly      = false
-          containerPath = "vol/web/static"
+          containerPath = "/vol/web/static"
           sourceVolume  = "static"
         },
         {
@@ -133,7 +133,7 @@ resource "aws_ecs_task_definition" "api" {
         },
         {
           readOnly      = true
-          containerPath = "vol/media"
+          containerPath = "/vol/media"
           sourceVolume  = "efs-media"
         }
       ]
