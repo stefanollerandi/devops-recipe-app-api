@@ -33,3 +33,19 @@ variable "ecr_app_image" {
 variable "django_secret_key" {
   description = "Secret key for Django"
 }
+
+variable "dns_zone_name" {
+  description = "Domain Name"
+  default     = "llerandi.me"
+}
+
+variable "subdomain" {
+  description = "Subdomain for each enviornment"
+  type        = map(string)
+
+  default = {
+    prod    = "api"
+    staging = "api.staging"
+    dev     = "api.dev"
+  }
+}
