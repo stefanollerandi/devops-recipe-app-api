@@ -192,6 +192,7 @@ data "aws_iam_policy_document" "iam_dynamic_create_service" {
     actions = [
       "iam:CreateServiceLinkedRole",
       "iam:DeleteServiceLinkedRole",
+      "iam:GetServiceLinkedRoleDeletionStatus",
     ]
     resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/*"]
   }
@@ -388,7 +389,8 @@ data "aws_iam_policy_document" "route53" {
       "acm:DescribeCertificate",
       "acm:ListTagsForCertificate",
       "acm:DeleteCertificate",
-      "acm:CreateCertificate"
+      "acm:CreateCertificate",
+      "route53:DeleteHostedZone",
     ]
     resources = ["*"]
   }
