@@ -4,11 +4,10 @@ resource "aws_route53_zone" "zone" {
 
 resource "aws_route53_record" "app" {
   zone_id = aws_route53_zone.zone.zone_id
-  name    = "${lookup(var.subdomain, terraform.workspace)}.${aws_route53_zone.zone.name}"
+  name    = terraform.workspace == "prod" ? aws_route53_zone.zone.name : "${lookup(var.subdomain, terraform.workspace)}.${aws_route53_zone.zone.name}"
   type    = "CNAME"
   ttl     = "300"
-
-  records = [aws_lb.api.dns_name]
+  records = ["${aws_lb.api.dns_name}"]
 }
 
 resource "aws_acm_certificate" "cert" {
