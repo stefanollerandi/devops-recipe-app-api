@@ -13,7 +13,7 @@ resource "aws_route53_record" "app" {
 
 resource "aws_acm_certificate" "cert" {
   domain_name       = aws_route53_record.app.name
-  validation_method = "DNS"
+  validation_method = "EMAIL"
 
   lifecycle {
     create_before_destroy = true
