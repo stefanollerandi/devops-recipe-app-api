@@ -35,6 +35,8 @@ resource "aws_route53_record" "cert_validation" {
   ttl             = 60
   type            = each.value.type
   zone_id         = aws_route53_zone.zone.zone_id
+
+  depends_on = [aws_acm_certificate.cert]
 }
 
 resource "aws_acm_certificate_validation" "cert" {
