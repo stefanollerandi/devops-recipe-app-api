@@ -11,6 +11,7 @@ resource "aws_route53_record" "app" {
   records = [aws_lb.api.dns_name]
 }
 
+
 resource "aws_acm_certificate" "cert" {
   domain_name       = aws_route53_record.app.name
   validation_method = "DNS"

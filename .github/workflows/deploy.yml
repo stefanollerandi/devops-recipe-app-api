@@ -53,5 +53,4 @@ jobs:
           docker compose run --rm terraform -chdir=deploy/ init
           docker compose run --rm terraform -chdir=deploy/ workspace select -or-create $workspace
           aws iam create-service-linked-role --aws-service-name rds.amazonaws.com || echo "Service-linked role already exists"
-          docker compose run --rm terraform -chdir=deploy/ apply -target=aws_acm_certificate.cert -auto-approve
           docker compose run --rm terraform -chdir=deploy/ apply -auto-approve
