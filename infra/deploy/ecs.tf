@@ -212,12 +212,7 @@ resource "aws_security_group" "ecs_service" {
   }
 }
 
-data "aws_iam_service_linked_role" "ecs" {
-  name = "AWSServiceRoleForECS"
-}
-
 resource "aws_iam_service_linked_role" "ecs" {
-  count       = length(data.aws_iam_service_linked_role.ecs.id) == 0 ? 1 : 0
   aws_service_name = "ecs.amazonaws.com"
 }
 
